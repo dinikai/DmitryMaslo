@@ -1,0 +1,52 @@
+# Blender 3.3.0 MTL File: 'Dimasывавы.blend'
+# www.blender.org
+
+newmtl Blya
+Ns 23.295671
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/dinikai/Downloads/maxresdefault.jpg
+
+newmtl Cap
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/dinikai/Downloads/1000_F_224595593_bgn4XtrYqUKdwSXaXdLJwuryAOqQ0KtS.jpg
+
+newmtl Jeans
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/dinikai/Downloads/UE096.jpg
+
+newmtl Kozha
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/dinikai/Downloads/1622905066_2-phonoteka_org-p-tekstura-kozhi-litsa-krasivo-3.jpg
+
+newmtl Kurtka
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/dinikai/Downloads/muzhskie-parki-adidas-20.jpg
