@@ -16,16 +16,10 @@ public class NoticeController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void Notify(NoticeSprite sprite, string notice)
+    public void Notify(int sprite, string notice)
     {
         animator.SetTrigger("Notify");
-        noticeImage.sprite = sprites[(int)sprite];
+        noticeImage.sprite = sprites[sprite];
         noticeText.text = notice;
     }
-}
-
-public enum NoticeSprite
-{
-    Butter,
-    Key
 }

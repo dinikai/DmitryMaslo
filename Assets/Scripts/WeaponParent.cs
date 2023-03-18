@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponParent : MonoBehaviour
 {
     public int lastId, selectedWeapon = 0;
+    public WeaponType selectedWeaponType = WeaponType.Pistol;
     public Transform[] ownedWeapon;
 
     public void Switch(int id)

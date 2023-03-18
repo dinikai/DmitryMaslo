@@ -8,6 +8,7 @@ public class Door : MonoBehaviour
     private UseController useController;
     private Animator animator;
     private AudioSource doorAudio;
+    private BoxCollider boxCollider;
     public bool opened = false;
 
     private void Awake()
@@ -16,6 +17,7 @@ public class Door : MonoBehaviour
         animator = GetComponent<Animator>();
         doorAudio = GetComponent<AudioSource>();
         useController.OnHover += UseController_OnHover;
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void UseController_OnHover(Transform t)
@@ -24,7 +26,13 @@ public class Door : MonoBehaviour
         {
             opened = !opened;
             doorAudio.Play();
+            boxCollider.isTrigger = true;
             animator.SetBool("Open", opened);
         }
+    }
+
+    public void Animator_OnAnimationEnd()
+    {
+        boxCollider.isTrigger = false;
     }
 }

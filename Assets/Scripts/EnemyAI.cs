@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour
         if (hp <= 0)
         {
             deathAudio.Play();
-            noticeController.Notify(NoticeSprite.Key, "+1 ключ");
+            noticeController.Notify(1, "+1 ключ");
             Elevator.keysCount++;
             keysCount.text = $"{Elevator.keysCount}";
             ParticleSystem deathParticles = GameObject.FindGameObjectWithTag("DeathParticles").GetComponent<ParticleSystem>();

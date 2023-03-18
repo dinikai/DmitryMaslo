@@ -35,14 +35,14 @@ public class Butter : MonoBehaviour
         {
             buttersCount++;
             collectAudio.Play();
-            useController.OnHover -= UseController_OnHover;
-            noticeController.Notify(NoticeSprite.Butter, "+1 масло");
+            noticeController.Notify(0, "+1 масло");
             if (hasCount) butterCount.text = $"{buttersCount}";
             if (buttersCount == 1)
             {
                 textController.WriteText("—обирайте масло дл€ создани€ оружи€");
             }
 
+            useController.OnHover -= UseController_OnHover;
             Destroy(gameObject);
         }
     }

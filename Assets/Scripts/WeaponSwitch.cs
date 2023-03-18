@@ -78,6 +78,7 @@ public class WeaponSwitch : MonoBehaviour
             if (menuIndex != weaponParent.selectedWeapon)
             {
                 weaponParent.selectedWeapon = menuIndex;
+                weaponParent.selectedWeaponType = (WeaponType)menuIndex;
                 audioSource.clip = selectClip;
                 audioSource.Play();
                 weaponParent.Switch(menuIndex);
