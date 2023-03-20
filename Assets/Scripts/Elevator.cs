@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Elevator : MonoBehaviour
 {
-    private TextController textController;
     public static int keysCount = 11;
     public int stage;
     public List<Vector3> stagePositions;
@@ -19,10 +18,10 @@ public class Elevator : MonoBehaviour
     [SerializeField] private TextMeshPro keysCountText;
     [SerializeField] private AudioSource openAudio, closeAudio;
     [SerializeField] private PublicCollider doorCollider, insideCollider;
+    public event EventHandler<ElevatorEventArgs> OnArrived;
 
-    private void Awake()
+    private void Start()
     {
-        textController = GameObject.FindGameObjectWithTag("Text").GetComponent<TextController>();
         doorCollider.OnColliderEnter += DoorCollider_OnColliderEnter;
         doorCollider.OnColliderExit += DoorCollider_OnColliderExit;
     }
@@ -35,6 +34,13 @@ public class Elevator : MonoBehaviour
             doorAnimator.SetBool("Open", doorOpened);
             openAudio.Play();
         }
+    }
+
+    private void CloseDoor()
+    {
+        doorOpened = true;
+        doorAnimator.SetBool("Open", doorOpened);
+        openAudio.Play();
     }
 
     public void DoorCollider_OnColliderExit(object sender, EventArgs e)
@@ -54,19 +60,25 @@ public class Elevator : MonoBehaviour
             if (liftBody.position == stagePositions[stage])
             {
                 lift = false;
-                DoorCollider_OnColliderEnter(this, new EventArgs());
+                CloseDoor();
+                OnArrived(this, new ElevatorEventArgs() { Stage = stage });
             }
         }
     }
 
     public void DoorOpened()
     {
-        if (!doorOpened && insideCollider.inCollider)
+        if (!doorOpened && insideCollider.inCollider && keysCount >= needKeys[stage])
         {
             stage++;
             lift = true;
-            stagesObjects[stage - 1].gameObject.SetActive(false);
-            stagesObjects[stage].gameObject.SetActive(true);
+            Destroy(stagesObjects[stage - 1]);
+            stagesObjects[stage].SetActive(true);
         }
     }
+}
+
+public class ElevatorEventArgs : EventArgs
+{
+    public int Stage { get; set; }
 }

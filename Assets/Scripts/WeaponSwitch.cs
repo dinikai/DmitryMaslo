@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class WeaponSwitch : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private AudioClip switchClip, selectClip;
     [SerializeField] private WeaponParent weaponParent;
+    [SerializeField] private TextMeshProUGUI ammoText;
     public bool menuOpened = false;
 
     private void Start()
@@ -98,4 +100,11 @@ public class WeaponSwitch : MonoBehaviour
         menuAnimator.SetBool("Moving", false);
         menuOpened = false;
     }
+}
+
+public enum WeaponType
+{
+    Flashlight,
+    Pistol,
+    SMG
 }

@@ -5,18 +5,16 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private UseController useController;
     private Animator animator;
     private AudioSource doorAudio;
     private BoxCollider boxCollider;
-    public bool opened = false;
+    public bool opened = false, locked = false;
 
-    private void Awake()
+    private void Start()
     {
-        useController = GameObject.FindGameObjectWithTag("UseController").GetComponent<UseController>();
         animator = GetComponent<Animator>();
         doorAudio = GetComponent<AudioSource>();
-        useController.OnHover += UseController_OnHover;
+        PublicObjects.UseController.OnHover += UseController_OnHover;
         boxCollider = GetComponent<BoxCollider>();
     }
 
@@ -24,11 +22,29 @@ public class Door : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && t == transform)
         {
-            opened = !opened;
-            doorAudio.Play();
-            boxCollider.isTrigger = true;
-            animator.SetBool("Open", opened);
+            if (!locked)
+            {
+                SetDoorState(!opened);
+            } else
+            {
+                doorAudio.clip = PublicObjects.doorLocked;
+                doorAudio.Play();
+            }
         }
+    }
+
+    public void SetDoorState(bool state)
+    {
+        opened = state;
+        doorAudio.clip = PublicObjects.doorOpen;
+        doorAudio.Play();
+        boxCollider.isTrigger = true;
+        animator.SetBool("Open", state);
+    }
+
+    private void OnDestroy()
+    {
+        PublicObjects.UseController.OnHover -= UseController_OnHover;
     }
 
     public void Animator_OnAnimationEnd()
