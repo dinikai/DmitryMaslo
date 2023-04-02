@@ -18,6 +18,7 @@ public class Elevator : MonoBehaviour
     [SerializeField] private TextMeshPro keysCountText;
     [SerializeField] private AudioSource openAudio, closeAudio;
     [SerializeField] private PublicCollider doorCollider, insideCollider;
+    [SerializeField] private FixedCameraController fixedCameraController;
     public event EventHandler<ElevatorEventArgs> OnArrived;
 
     private void Start()
@@ -74,6 +75,7 @@ public class Elevator : MonoBehaviour
             lift = true;
             Destroy(stagesObjects[stage - 1]);
             stagesObjects[stage].SetActive(true);
+            fixedCameraController.UninstallCameras();
         }
     }
 }

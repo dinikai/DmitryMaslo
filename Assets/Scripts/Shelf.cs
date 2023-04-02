@@ -10,7 +10,7 @@ public class Shelf : MonoBehaviour
     private AudioSource doorAudio;
     public bool opened = false, openedOnce = false;
 
-    private void Awake()
+    private void Start()
     {
         doorAudio = GetComponent<AudioSource>();
     }

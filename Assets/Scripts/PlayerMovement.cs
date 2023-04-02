@@ -23,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        xAxis = Input.GetAxisRaw("Horizontal");
-        zAxis = Input.GetAxisRaw("Vertical");
+        xAxis = Input.GetAxis("Horizontal");
+        zAxis = Input.GetAxis("Vertical");
 
         float speed = Input.GetKey(KeyCode.LeftShift) && stamina > 0f ? runSpeed : walkSpeed;
         staminaBar.fillAmount = stamina;

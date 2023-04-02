@@ -1,17 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FixedCameraController : MonoBehaviour
 {
     public FixedCamera[] cameras;
     public KeyCode[] keys;
-    [SerializeField] private Transform player, playerCamera;
-    [SerializeField] private GameObject cameraBodyPrefab;
+    [SerializeField] private Transform player, playerCamera, UIContainer;
+    [SerializeField] private GameObject cameraBodyPrefab, UIPrefab;
     [SerializeField] private Canvas canvas, cameraCanvas;
     [SerializeField] private TextMeshProUGUI cameraNameText;
+    [SerializeField] private AudioSource openAudio, staticAudio;
+
+    private void Start()
+    {
+        for (int i = 0; i < cameras.Length; i++)
+            Instantiate(UIPrefab, UIContainer);
+
+        UninstallCameras();
+    }
 
     public void ActivateCamera(int index)
     {
@@ -24,6 +35,9 @@ public class FixedCameraController : MonoBehaviour
         canvas.enabled = false;
         cameraCanvas.enabled = true;
         cameraNameText.text = $"Cam {index + 1}";
+
+        openAudio.Play();
+        staticAudio.Play();
     }
 
     public void InstallCamera(int index)
@@ -34,6 +48,8 @@ public class FixedCameraController : MonoBehaviour
         cameras[index].cameraBody = Instantiate(cameraBodyPrefab, player.position, player.rotation);
         cameras[index].cameraBody.GetComponent<FixedCameraBody>().text1.text = (index + 1).ToString();
         cameras[index].cameraBody.GetComponent<FixedCameraBody>().text2.text = (index + 1).ToString();
+
+        UIContainer.GetChild(index).GetComponent<Image>().color = Color.white;
     }
 
     public void DeactivateCameras()
@@ -44,15 +60,26 @@ public class FixedCameraController : MonoBehaviour
         }
         canvas.enabled = true;
         cameraCanvas.enabled = false;
+
+        openAudio.Play();
+        staticAudio.Stop();
     }
 
     public void UninstallCameras()
     {
-        DeactivateCameras();
+        bool anyCamActive = false;
+        foreach (var camera in cameras)
+            if (camera.GetComponent<Camera>().enabled) anyCamActive = true;
+        if (anyCamActive)
+            DeactivateCameras();
         foreach (var fixedCamera in cameras)
         {
             fixedCamera.installed = false;
             Destroy(fixedCamera.cameraBody);
+        }
+        foreach (Transform UI in UIContainer)
+        {
+            UI.GetComponent<Image>().color = new Color(1, 1, 1, .3f);
         }
     }
 
@@ -72,7 +99,10 @@ public class FixedCameraController : MonoBehaviour
                 ActivateCamera(index);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        bool anyCamActive = false;
+        foreach (var camera in cameras)
+            if (camera.GetComponent<Camera>().enabled) anyCamActive = true;
+        if (Input.GetKeyDown(KeyCode.Escape) && anyCamActive)
             DeactivateCameras();
     }
 }

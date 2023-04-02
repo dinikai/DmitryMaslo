@@ -24,6 +24,7 @@ public class Ammo : MonoBehaviour
         {
             PublicObjects.NoticeController.Notify(2, $"+{amount} патронов");
             ammo[type] += amount;
+            PublicObjects.equipAudio.Play();
 
             PublicObjects.UseController.OnHover -= UseController_OnHover;
             Destroy(gameObject);

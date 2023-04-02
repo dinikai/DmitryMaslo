@@ -10,6 +10,8 @@ public class PublicObjects : MonoBehaviour
     public static Elevator Elevator { get; set; }
     public static AudioClip doorOpen, doorLocked;
     public AudioClip mDoorOpen, mDoorLocked;
+    public static AudioSource equipAudio;
+    public AudioSource mEquipAudio;
 
     private void Awake()
     {
@@ -19,5 +21,6 @@ public class PublicObjects : MonoBehaviour
         Elevator = GameObject.FindGameObjectWithTag("Elevator").GetComponent<Elevator>();
         doorOpen = mDoorOpen;
         doorLocked = mDoorLocked;
+        equipAudio = mEquipAudio;
     }
 }
