@@ -49,7 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footsteps: {fileID: 0}
   stepClips:
-  - {fileID: 8300000, guid: 5446290c6548e8e43b4de22e4dfddcce, type: 3}
   - {fileID: 8300000, guid: fafad2138d6c02a4f82e184067877587, type: 3}
 --- !u!95 &552302418
 Animator:
@@ -196,7 +195,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8270784772950895352}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &831865191
 Light:
@@ -212,7 +211,7 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2.5
   m_Range: 40
-  m_SpotAngle: 110
+  m_SpotAngle: 100
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -1337,7 +1336,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4bc72becdec09be429e7cc6bf050ef76, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.697
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1458,8 +1457,8 @@ MonoBehaviour:
   runSpeed: 10
   fallSpeed: 1
   stamina: 1
-  staminaIncrement: 0.002
-  staminaDecrement: 0.003
+  staminaIncrement: 0.0025
+  staminaDecrement: 0.002
   acceleration: 2
   velocity: 0
   staminaBar: {fileID: 0}
@@ -1707,7 +1706,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: abb69a0614f271b458f59b0f045872eb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.663
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1833,4 +1832,4 @@ MonoBehaviour:
   enemyAim: 0
   cooldownTime: 0.3
   maxDistance: 100
-  damage: 0.08
+  damage: 0.1

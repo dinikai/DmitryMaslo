@@ -2793,15 +2793,15 @@ AudioReverbZone:
   m_Enabled: 1
   m_MinDistance: 120
   m_MaxDistance: 120.22956
-  m_ReverbPreset: 2
+  m_ReverbPreset: 13
   m_Room: -1000
-  m_RoomHF: -6000
-  m_DecayTime: 0.17
-  m_DecayHFRatio: 0.1
-  m_Reflections: -1204
-  m_ReflectionsDelay: 0.001
-  m_Reverb: 207
-  m_ReverbDelay: 0.002
+  m_RoomHF: -300
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.59
+  m_Reflections: -1219
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 441
+  m_ReverbDelay: 0.011
   m_HFReference: 5000
   m_Diffusion: 100
   m_Density: 100
@@ -8101,7 +8101,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: bac9f3e2fdb33cf46a09b136ee627003, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bac9f3e2fdb33cf46a09b136ee627003, type: 3}
       propertyPath: m_LocalScale.x
