@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator, modelAnimator;
     [SerializeField] private CraftController craftController;
     public bool canCraft, canWalk;
+    private float blend;
+    public float blendIncrease;
 
     private void Start()
     {
@@ -21,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
         }*/
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
@@ -33,41 +35,47 @@ public class PlayerMovement : MonoBehaviour
         if (canCraft)
             canWalk = !craftController.bodyShown;
 
-        if ((xAxis != 0 || zAxis != 0) && canWalk)
+        if ((xAxis == 1 || zAxis == 1) || (xAxis == -1 || zAxis == -1) && canWalk)
         {
-            if (Input.GetKey(KeyCode.LeftShift)) // Run
+            animator.SetBool("Walk", true);
+            blend += blendIncrease;
+
+            if (Input.GetKey(KeyCode.LeftShift) && stamina > 0f) // Run
             {
-                animator.SetBool("Walk", false);
-                animator.SetBool("Run", true);
+                if (blend > 1)
+                    blend = 1;
+                animator.SetFloat("Blend", blend);
                 if (velocity < 1f)
                 {
-                    velocity += acceleration * Time.deltaTime;
+                    velocity += acceleration * Time.fixedDeltaTime;
                 }
             } else // Walk
             {
-                animator.SetBool("Walk", true);
-                animator.SetBool("Run", false);
+                if (blend > .5f)
+                    blend = .5f;
+                animator.SetFloat("Blend", blend);
                 if (velocity < .5f)
                 {
-                    velocity += acceleration * Time.deltaTime;
+                    velocity += acceleration * Time.fixedDeltaTime;
                 }
                 if (velocity > .55f)
                 {
-                    velocity -= acceleration * Time.deltaTime;
+                    velocity -= acceleration * Time.fixedDeltaTime;
                 }
             }
         } else // Idle
         {
+            blend -= blendIncrease;
+            if (blend < 0f)
+                blend = 0f;
+
+            animator.SetFloat("Blend", blend);
             animator.SetBool("Walk", false);
-            animator.SetBool("Run", false);
             if (velocity > 0f)
             {
-                velocity -= acceleration * Time.deltaTime;
+                velocity -= acceleration * Time.fixedDeltaTime;
             }
         }
-
-        if (velocity < 0f)
-            velocity = 0f;
 
         modelAnimator.SetFloat("Velocity", velocity);
 
@@ -76,13 +84,10 @@ public class PlayerMovement : MonoBehaviour
         float localSpeed = speed;
         if (!canWalk)
             localSpeed = 0;
-        Vector3 moveVector = transform.TransformDirection(new Vector3(xAxis, 0, zAxis)) * localSpeed * Time.deltaTime;
+        Vector3 moveVector = transform.TransformDirection(new Vector3(xAxis, 0, zAxis)) * localSpeed * Time.fixedDeltaTime;
         moveVector.y -= yVector;
         characterController.Move(moveVector);
-    }
 
-    private void FixedUpdate()
-    {
         if (Input.GetKey(KeyCode.LeftShift) && (xAxis != 0 || zAxis != 0) && canWalk)
         {
             if (stamina > 0f) stamina -= staminaDecrement;

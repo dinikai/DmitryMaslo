@@ -6,6 +6,6 @@ using UnityEngine;
 
 public class FixedCamera : MonoBehaviour
 {
-    public bool installed;
-    public GameObject cameraBody;
+    public bool Installed;
+    public GameObject CameraBody;
 }

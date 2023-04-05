@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footsteps: {fileID: 0}
+  stepClips:
+  - {fileID: 8300000, guid: 5446290c6548e8e43b4de22e4dfddcce, type: 3}
+  - {fileID: 8300000, guid: fafad2138d6c02a4f82e184067877587, type: 3}
 --- !u!95 &552302418
 Animator:
   serializedVersion: 5
@@ -208,8 +211,8 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2.5
-  m_Range: 30
-  m_SpotAngle: 120
+  m_Range: 40
+  m_SpotAngle: 110
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -357,7 +360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1282249913
 Transform:
   m_ObjectHideFlags: 0
@@ -1118,15 +1121,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc424f7156d721a469eef17ed12316f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 258.6
+      value: 149
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc424f7156d721a469eef17ed12316f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.64
+      value: 5.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc424f7156d721a469eef17ed12316f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18.31
+      value: 87.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dc424f7156d721a469eef17ed12316f3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1451,8 +1454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100ed1edff15c094080974c9b0c8e30d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  runSpeed: 9
+  walkSpeed: 6
+  runSpeed: 10
   fallSpeed: 1
   stamina: 1
   staminaIncrement: 0.002
@@ -1465,6 +1468,7 @@ MonoBehaviour:
   craftController: {fileID: 0}
   canCraft: 1
   canWalk: 0
+  blendIncrease: 0.05
 --- !u!114 &1168888060
 MonoBehaviour:
   m_ObjectHideFlags: 0

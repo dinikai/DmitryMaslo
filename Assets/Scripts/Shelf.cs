@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shelf : MonoBehaviour
@@ -23,6 +21,7 @@ public class Shelf : MonoBehaviour
         doorR.SetBool("OpenR", opened);
         if (!openedOnce && zombieShelf)
         {
+            zombieAI.gameObject.SetActive(true);
             zombieAI.hasDestination = true;
             zombieAnimator.SetTrigger("Run");
         }

@@ -6,12 +6,11 @@ using UnityEngine;
 public class PublicCollider : MonoBehaviour
 {
     public bool inCollider;
-    public string compareTag;
     public event EventHandler OnColliderEnter, OnColliderExit;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(compareTag))
+        if (other.CompareTag("Player"))
         {
             inCollider = true;
             OnColliderEnter.Si(this, new EventArgs());
@@ -20,7 +19,7 @@ public class PublicCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(compareTag))
+        if (other.CompareTag("Player"))
         {
             inCollider = false;
             OnColliderExit.Si(this, new EventArgs());

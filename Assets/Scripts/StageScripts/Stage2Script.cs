@@ -6,6 +6,7 @@ public class Stage2Script : MonoBehaviour
     [SerializeField] private Transform lights;
     [SerializeField] private Door[] doorsToClose;
     [SerializeField] private PublicCollider publicCollider;
+    [SerializeField] private AudioSource lightOn, lightOff, alert;
 
     private void Start()
     {
@@ -24,7 +25,8 @@ public class Stage2Script : MonoBehaviour
         {
             light.GetComponent<Animator>().SetBool("On", false);
         }
-        GetComponent<AudioSource>().Play();
+        lightOff.Play();
+        alert.Play();
         Destroy(publicCollider);
     }
 
@@ -36,6 +38,7 @@ public class Stage2Script : MonoBehaviour
             {
                 light.GetComponent<Animator>().SetBool("On", true);
             }
+            lightOn.Play();
         }
     }
 }

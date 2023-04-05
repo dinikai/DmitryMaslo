@@ -17,7 +17,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerInfo.SetHp(playerInfo.Hp - .05f);
+            //playerInfo.SetHp(playerInfo.Hp - .05f);
             collidedWithPlayer = true;
         }
     }
@@ -36,7 +36,7 @@ public class EnemyAttack : MonoBehaviour
         {
             if (collidedWithPlayer)
             {
-                playerInfo.SetHp(playerInfo.Hp - .05f);
+                //playerInfo.SetHp(playerInfo.Hp - .05f);
             }
             yield return new WaitForSeconds(.6f);
         }
