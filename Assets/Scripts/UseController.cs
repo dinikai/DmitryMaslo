@@ -11,6 +11,8 @@ public class UseController : MonoBehaviour
     public delegate void HoverDelegate(Transform t);
     public event HoverDelegate OnHover;
     private GameObject lastUsable;
+    public bool Hover;
+    public Transform LastTransform;
 
     private void Start()
     {
@@ -22,12 +24,15 @@ public class UseController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        Hover = false;
         if (Physics.Raycast(ray, out hit, maxDistance))
         {
             Usable usable = hit.transform.GetComponent<Usable>();
             if (usable)
             {
                 OnHover(hit.transform);
+                LastTransform = hit.transform;
+                Hover = true;
                 hintObject.SetActive(true);
                 lastUsable = hit.transform.gameObject;
                 if (usable.changeEmission)

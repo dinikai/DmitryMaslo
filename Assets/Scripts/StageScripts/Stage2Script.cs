@@ -16,29 +16,23 @@ public class Stage2Script : MonoBehaviour
 
     private void PublicCollider_OnColliderEnter(object sender, EventArgs e)
     {
-        foreach (var door in doorsToClose)
-        {
-            door.SetDoorState(false);
-            door.locked = true;
-        }
-        foreach (Transform light in lights)
+        /*foreach (Transform light in lights)
         {
             light.GetComponent<Animator>().SetBool("On", false);
         }
-        lightOff.Play();
-        alert.Play();
-        Destroy(publicCollider);
+        lightOff.Play();*/
+        Destroy(publicCollider.gameObject);
     }
 
     private void Elevator_OnArrived(object sender, ElevatorEventArgs e)
     {
-        if (e.Stage == 1)
+        /*if (e.Stage == 1)
         {
             foreach (Transform light in lights)
             {
                 light.GetComponent<Animator>().SetBool("On", true);
             }
             lightOn.Play();
-        }
+        }*/
     }
 }
