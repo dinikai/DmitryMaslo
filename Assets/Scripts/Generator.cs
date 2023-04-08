@@ -31,7 +31,7 @@ public class Generator : MonoBehaviour
             while (true)
             {
                 float interval = isCharging ? chargeInterval : dischargeInterval;
-                
+
                 if (fnafLamp.State)
                 {
                     interval = dischargeLampInterval;
@@ -40,8 +40,12 @@ public class Generator : MonoBehaviour
                         lampIntervalFlag = true;
                         beepAudio.Play();
                     }
-                } else
+                }
+                else
+                {
                     beepAudio.Stop();
+                    lampIntervalFlag = false;
+                }
 
                 if (isCharging)
                 {
@@ -65,6 +69,7 @@ public class Generator : MonoBehaviour
                     lights.ForEach(x => x.SetActive(false));
                     lamps.ForEach(x => x.SetState(false));
                     OnDown.Si(this, new());
+                    beepAudio.Stop();
                     break;
                 }
 
