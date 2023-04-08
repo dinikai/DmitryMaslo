@@ -69,7 +69,7 @@ public class Elevator : MonoBehaviour
 
     public void DoorOpened()
     {
-        if (!doorOpened && insideCollider.inCollider && keysCount >= needKeys[stage])
+        if (!doorOpened && insideCollider.InCollider && keysCount >= needKeys[stage])
         {
             stage++;
             lift = true;

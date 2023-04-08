@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PublicCollider : MonoBehaviour
 {
-    public bool inCollider;
+    public bool InCollider;
     public event EventHandler OnColliderEnter, OnColliderExit;
     public bool OverrideTag;
     public string OverridedTag;
@@ -18,7 +18,7 @@ public class PublicCollider : MonoBehaviour
     {
         if (other.CompareTag(overridedTag))
         {
-            inCollider = true;
+            InCollider = true;
             OnColliderEnter.Si(this, new EventArgs());
         }
     }
@@ -27,7 +27,7 @@ public class PublicCollider : MonoBehaviour
     {
         if (other.CompareTag(overridedTag))
         {
-            inCollider = false;
+            InCollider = false;
             OnColliderExit.Si(this, new EventArgs());
         }
     }
