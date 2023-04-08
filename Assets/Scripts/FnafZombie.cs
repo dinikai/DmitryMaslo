@@ -22,7 +22,7 @@ public class FnafZombie : MonoBehaviour
 
     private void LoseTrigger_OnColliderEnter(object sender, EventArgs e)
     {
-        if (hideZone.InCollider || fnafLamp.State)
+        if (fnafLamp.State)
         {
             GoingToHome = true;
             stepsAudio.Play();

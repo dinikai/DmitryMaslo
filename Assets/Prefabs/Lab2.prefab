@@ -5806,7 +5806,7 @@ MonoBehaviour:
   Charge: 100
   chargeInterval: 0.15
   dischargeInterval: 0.45
-  dischargeLampInterval: 0.2
+  dischargeLampInterval: 0.25
   IsWorking: 0
   lights:
   - {fileID: 783957844037826525}

@@ -14824,11 +14824,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5466309175769902786, guid: 5671dba4e5bd81a48ab81993936a70fe, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 149.99997
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5466309175786387383, guid: 5671dba4e5bd81a48ab81993936a70fe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 199.99998
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5466309175786387386, guid: 5671dba4e5bd81a48ab81993936a70fe, type: 3}
       propertyPath: weaponParent
@@ -15264,7 +15264,7 @@ MonoBehaviour:
   staticAudio: {fileID: 325018743}
   jumpscareAudio: {fileID: 1225371335}
   jumpscareZombie: {fileID: 834072384}
-  fnafLamp: {fileID: 0}
+  fnafLamp: {fileID: 1501915614}
 --- !u!82 &8123911199171249716
 AudioSource:
   m_ObjectHideFlags: 0
