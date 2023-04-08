@@ -10,12 +10,15 @@ public class Generator : MonoBehaviour
     [SerializeField] Switch chargeSwitch;
     [SerializeField] TextMeshPro chargeText;
     [SerializeField] GameObject warningLight;
-    [SerializeField] AudioSource warningAudio, downAudio;
+    [SerializeField] AudioSource warningAudio, downAudio, beepAudio;
     public int Charge;
-    [SerializeField] float chargeInterval, dischargeInterval;
-    bool isCharging, lowPower, lowPowerFlag;
+    [SerializeField] float chargeInterval, dischargeInterval, dischargeLampInterval;
+    bool isCharging, lowPower, lowPowerFlag, lampIntervalFlag;
     public bool IsWorking;
     [SerializeField] List<GameObject> lights;
+    [SerializeField] List<Lamp> lamps;
+    [SerializeField] FnafLamp fnafLamp;
+    public event EventHandler OnDown;
 
     private void Start()
     {
@@ -23,13 +26,23 @@ public class Generator : MonoBehaviour
         chargeSwitch.OnUp += ChargeSwitch_OnUp;
         IsWorking = true;
 
-        //lights.ForEach(x => x.SetActive(false));
-
         IEnumerator DischargeCoroutine()
         {
             while (true)
             {
                 float interval = isCharging ? chargeInterval : dischargeInterval;
+                
+                if (fnafLamp.State)
+                {
+                    interval = dischargeLampInterval;
+                    if (!lampIntervalFlag)
+                    {
+                        lampIntervalFlag = true;
+                        beepAudio.Play();
+                    }
+                } else
+                    beepAudio.Stop();
+
                 if (isCharging)
                 {
                     yield return new WaitForSeconds(interval);
@@ -50,6 +63,8 @@ public class Generator : MonoBehaviour
                     GetComponent<Animator>().SetTrigger("Stop");
                     IsWorking = false;
                     lights.ForEach(x => x.SetActive(false));
+                    lamps.ForEach(x => x.SetState(false));
+                    OnDown.Si(this, new());
                     break;
                 }
 

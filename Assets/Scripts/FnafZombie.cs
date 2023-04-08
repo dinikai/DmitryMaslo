@@ -9,7 +9,10 @@ public class FnafZombie : MonoBehaviour
     public bool Lost = false, CanHide = false, GoingToHome;
     [SerializeField] PublicCollider loseTrigger, hideZone;
     [SerializeField] float attackSpeed, homeSpeed;
-    [SerializeField] AudioSource stepsAudio, downAudio;
+    [SerializeField] AudioSource stepsAudio, staticAudio, jumpscareAudio;
+    bool jumpscared = false;
+    [SerializeField] GameObject jumpscareZombie;
+    [SerializeField] FnafLamp fnafLamp;
 
     private void Start()
     {
@@ -19,15 +22,16 @@ public class FnafZombie : MonoBehaviour
 
     private void LoseTrigger_OnColliderEnter(object sender, EventArgs e)
     {
-        if (!hideZone.InCollider)
-        {
-            Lost = true;
-            navMeshAgent.speed = 30;
-            Destroy(loseTrigger.gameObject);
-        } else
+        if (hideZone.InCollider || fnafLamp.State)
         {
             GoingToHome = true;
             stepsAudio.Play();
+        } else
+        {
+            Lost = true;
+            navMeshAgent.speed = 20;
+            staticAudio.Play();
+            Destroy(loseTrigger.gameObject);
         }
     }
 
@@ -44,6 +48,14 @@ public class FnafZombie : MonoBehaviour
         {
             navMeshAgent.speed = homeSpeed;
             navMeshAgent.SetDestination(homePoint.position);
+        }
+
+        if (Vector3.Distance(transform.position, player.position) < 10 && !jumpscared)
+        {
+            jumpscared = true;
+            jumpscareAudio.Play();
+            jumpscareZombie.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }
