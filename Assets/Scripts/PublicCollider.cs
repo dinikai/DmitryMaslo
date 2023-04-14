@@ -19,7 +19,7 @@ public class PublicCollider : MonoBehaviour
         if (other.CompareTag(overridedTag))
         {
             InCollider = true;
-            OnColliderEnter.Si(this, new EventArgs());
+            OnColliderEnter?.Invoke(this, new EventArgs());
         }
     }
 
@@ -28,7 +28,7 @@ public class PublicCollider : MonoBehaviour
         if (other.CompareTag(overridedTag))
         {
             InCollider = false;
-            OnColliderExit.Si(this, new EventArgs());
+            OnColliderExit?.Invoke(this, new EventArgs());
         }
     }
 }

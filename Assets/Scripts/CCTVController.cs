@@ -5,12 +5,23 @@ using UnityEngine;
 public class CCTVController : MonoBehaviour
 {
     public GameObject[] Cameras, Screens;
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource audioSource, errorAudio;
     [SerializeField] Material idle, pressed;
     [SerializeField] MeshRenderer[] buttons;
+    [SerializeField] Generator generator;
+
+    private void Start()
+    {
+        generator.OnDown += (sender, e) => DisableCameras();
+    }
 
     public void UseCamera(int index)
     {
+        if (!generator.IsWorking)
+        {
+            errorAudio.Play();
+            return;
+        }
         for (int i = 0; i < Cameras.Length; i++)
         {
             Cameras[i].SetActive(false);
@@ -22,5 +33,15 @@ public class CCTVController : MonoBehaviour
         Screens[index].SetActive(true);
         buttons[index].sharedMaterial = pressed;
         audioSource.Play();
+    }
+
+    public void DisableCameras()
+    {
+        for (int i = 0; i < Cameras.Length; i++)
+        {
+            Cameras[i].SetActive(false);
+            Screens[i].SetActive(false);
+            buttons[i].sharedMaterial = idle;
+        }
     }
 }

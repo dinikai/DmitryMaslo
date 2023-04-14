@@ -327,6 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c150a3908a3c554ab93b5c3dea4e320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  CameraIndex: 0
 --- !u!114 &7763393270990265304
 MonoBehaviour:
   m_ObjectHideFlags: 0

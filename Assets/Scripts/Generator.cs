@@ -18,6 +18,7 @@ public class Generator : MonoBehaviour
     [SerializeField] List<GameObject> lights;
     [SerializeField] List<Lamp> lamps;
     [SerializeField] FnafLamp fnafLamp;
+    [SerializeField] CCTVController cctvController;
     public event EventHandler OnDown;
 
     private void Start()

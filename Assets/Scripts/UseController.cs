@@ -30,7 +30,7 @@ public class UseController : MonoBehaviour
             Usable usable = hit.transform.GetComponent<Usable>();
             if (usable)
             {
-                OnHover(hit.transform);
+                OnHover?.Invoke(hit.transform);
                 LastTransform = hit.transform;
                 Hover = true;
                 hintObject.SetActive(true);

@@ -8,7 +8,7 @@ public class FnafZombie : MonoBehaviour
     [SerializeField] Transform player, homePoint;
     public bool Lost = false, CanHide = false, GoingToHome;
     [SerializeField] PublicCollider loseTrigger, hideZone;
-    [SerializeField] float attackSpeed, homeSpeed;
+    [SerializeField] float attackSpeed, homeSpeed, speedIncrease;
     [SerializeField] AudioSource stepsAudio, staticAudio, jumpscareAudio;
     bool jumpscared = false;
     [SerializeField] GameObject jumpscareZombie;
@@ -25,6 +25,7 @@ public class FnafZombie : MonoBehaviour
         if (fnafLamp.State)
         {
             GoingToHome = true;
+            attackSpeed += speedIncrease;
             stepsAudio.Play();
         } else
         {
