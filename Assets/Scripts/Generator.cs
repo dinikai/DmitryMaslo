@@ -27,56 +27,6 @@ public class Generator : MonoBehaviour
         chargeSwitch.OnUp += ChargeSwitch_OnUp;
         IsWorking = true;
 
-        IEnumerator DischargeCoroutine()
-        {
-            while (true)
-            {
-                float interval = isCharging ? chargeInterval : dischargeInterval;
-
-                if (fnafLamp.State)
-                {
-                    interval = dischargeLampInterval;
-                    if (!lampIntervalFlag)
-                    {
-                        lampIntervalFlag = true;
-                        beepAudio.Play();
-                    }
-                }
-                else
-                {
-                    beepAudio.Stop();
-                    lampIntervalFlag = false;
-                }
-
-                if (isCharging)
-                {
-                    yield return new WaitForSeconds(interval);
-                    Charge++;
-                } else
-                {
-                    yield return new WaitForSeconds(interval);
-                    Charge--;
-                }
-                if (Charge < 0) Charge = 0;
-                if (Charge > 100) Charge = 100;
-
-                if (Charge == 0)
-                {
-                    chargeText.gameObject.SetActive(false);
-                    downAudio.Play();
-                    GetComponent<AudioSource>().Stop();
-                    GetComponent<Animator>().SetTrigger("Stop");
-                    IsWorking = false;
-                    lights.ForEach(x => x.SetActive(false));
-                    lamps.ForEach(x => x.SetState(false));
-                    OnDown.Si(this, new());
-                    beepAudio.Stop();
-                    break;
-                }
-
-                chargeText.text = $"{Charge}%";
-            }
-        }
         IEnumerator WarningCoroutine()
         {
             while (true && IsWorking)
@@ -105,8 +55,59 @@ public class Generator : MonoBehaviour
             lowPowerFlag = false;
             warningAudio.Stop();
         }
-        StartCoroutine(DischargeCoroutine());
         StartCoroutine(WarningCoroutine());
+    }
+
+    public IEnumerator DischargeCoroutine()
+    {
+        while (true)
+        {
+            float interval = isCharging ? chargeInterval : dischargeInterval;
+
+            if (fnafLamp.State)
+            {
+                interval = dischargeLampInterval;
+                if (!lampIntervalFlag)
+                {
+                    lampIntervalFlag = true;
+                    beepAudio.Play();
+                }
+            }
+            else
+            {
+                beepAudio.Stop();
+                lampIntervalFlag = false;
+            }
+
+            if (isCharging)
+            {
+                yield return new WaitForSeconds(interval);
+                Charge++;
+            }
+            else
+            {
+                yield return new WaitForSeconds(interval);
+                Charge--;
+            }
+            if (Charge < 0) Charge = 0;
+            if (Charge > 100) Charge = 100;
+
+            if (Charge == 0)
+            {
+                chargeText.gameObject.SetActive(false);
+                downAudio.Play();
+                GetComponent<AudioSource>().Stop();
+                GetComponent<Animator>().SetTrigger("Stop");
+                IsWorking = false;
+                lights.ForEach(x => x.SetActive(false));
+                lamps.ForEach(x => x.SetState(false));
+                OnDown.Si(this, new());
+                beepAudio.Stop();
+                break;
+            }
+
+            chargeText.text = $"{Charge}%";
+        }
     }
 
     private void ChargeSwitch_OnDown(object sender, EventArgs e)

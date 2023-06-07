@@ -6,7 +6,7 @@ public class WeaponParent : MonoBehaviour
 {
     public int lastId, selectedWeapon = 0;
     public WeaponType selectedWeaponType = WeaponType.Flashlight;
-    public Transform[] ownedWeapon;
+    public List<Transform> ownedWeapon;
 
     public void Switch(int id)
     {

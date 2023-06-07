@@ -27,7 +27,7 @@ public class WeaponSwitch : MonoBehaviour
 
     public void UpdateWeaponList()
     {
-        for (int i = 0; i < weaponParent.ownedWeapon.Length; i++)
+        for (int i = 0; i < weaponParent.ownedWeapon.Count; i++)
         {
             transform.GetChild(i).gameObject.SetActive(true);
         }
@@ -40,7 +40,7 @@ public class WeaponSwitch : MonoBehaviour
 
         if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
         {
-            if (menuIndex < weaponParent.ownedWeapon.Length - 1)
+            if (menuIndex < weaponParent.ownedWeapon.Count - 1)
             {
                 menuIndex++;
                 audioSource.clip = switchClip; audioSource.Play();

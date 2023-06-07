@@ -25,15 +25,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (canCraft)
+            if (!craftController.bodyShown)
+                Move();
+    }
+
+    private void Move()
+    {
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
 
         float speed = Input.GetKey(KeyCode.LeftShift) && stamina > 0f ? runSpeed : walkSpeed;
         staminaBar.fillAmount = stamina;
-
-        canWalk = true;
-        if (canCraft)
-            canWalk = !craftController.bodyShown;
 
         if ((xAxis == 1 || zAxis == 1) || (xAxis == -1 || zAxis == -1) && canWalk)
         {
@@ -49,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     velocity += acceleration * Time.fixedDeltaTime;
                 }
-            } else // Walk
+            }
+            else // Walk
             {
                 if (blend > .5f)
                     blend = .5f;
@@ -63,7 +67,8 @@ public class PlayerMovement : MonoBehaviour
                     velocity -= acceleration * Time.fixedDeltaTime;
                 }
             }
-        } else // Idle
+        }
+        else // Idle
         {
             blend -= blendIncrease;
             if (blend < 0f)
