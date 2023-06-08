@@ -26,8 +26,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (canCraft)
+        {
             if (!craftController.bodyShown)
                 Move();
+        }
+        else
+            Move();
     }
 
     private void Move()

@@ -6,17 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class HistoryDialog : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI dialog1, dialog2;
-    [SerializeField] private Animator name1, name2, fadeImage;
+    [SerializeField] private TextMeshProUGUI nameText, text;
+    [SerializeField] private Animator dialogCamera, fadeImage;
     [SerializeField] private float letterDelay;
     [SerializeField] private AudioSource dialogAudio;
-    [SerializeField] private List<HistoryScene> scenes; // 0 - Camera, 1 - Dima, 2 - Emil
+    [SerializeField] private List<HistoryScene> scenes;
     [SerializeField] private List<Transform> scenesObject;
     public List<string> dialog = new List<string>();
     public List<int> dialogSequence = new List<int>();
     public int dialogIndex = 0, sceneIndex = 0;
     public bool writing;
     private string writtenLetters = "";
+    private List<string> names = new()
+    {
+        "Дима",
+        "Эмиль"
+    };
 
     private void Start()
     {
@@ -38,23 +43,17 @@ public class HistoryDialog : MonoBehaviour
         {
             if (writing)
             {
-                if (dialogSequence[dialogIndex] == 0)
-                {
-                    name1.SetBool("Active", true);
-                    name2.SetBool("Active", false);
-                }
-                else if (dialogSequence[dialogIndex] == 1)
-                {
-                    name1.SetBool("Active", false);
-                    name2.SetBool("Active", true);
-                }
-                else if (dialogSequence[dialogIndex] == 99)
+                if (dialogSequence[dialogIndex] == 99)
                 {
                     fadeImage.SetTrigger("Fade");
                 }
                 else if (dialogSequence[dialogIndex] == 100)
                 {
                     SceneManager.LoadScene("PreGame");
+                } else
+                {
+                    nameText.text = names[dialogSequence[dialogIndex]];
+                    dialogCamera.SetInteger("Name", dialogSequence[dialogIndex]);
                 }
 
                 if (dialogSequence[dialogIndex] != 99 && dialogSequence[dialogIndex] != 100)
@@ -62,14 +61,7 @@ public class HistoryDialog : MonoBehaviour
                     for (int i = 0; i < dialog[dialogIndex].Length; i++)
                     {
                         writtenLetters += dialog[dialogIndex][i];
-                        if (dialogSequence[dialogIndex] == 0)
-                        {
-                            dialog1.text = writtenLetters;
-                        }
-                        else if (dialogSequence[dialogIndex] == 1)
-                        {
-                            dialog2.text = writtenLetters;
-                        }
+                        text.text = writtenLetters;
                         dialogAudio.Play();
                         yield return new WaitForSeconds(letterDelay);
                     }
@@ -82,9 +74,14 @@ public class HistoryDialog : MonoBehaviour
         }
     }
 
-    public void NextScene()
+    public IEnumerator NextScene()
     {
         sceneIndex++;
+        if (sceneIndex == 1)
+        {
+            dialogCamera.enabled = false;
+            yield return new WaitForEndOfFrame();
+        }
         for (int i = 0; i < scenesObject.Count; i++)
         {
             scenesObject[i].position = scenes[sceneIndex].SceneObjects[i].Position;

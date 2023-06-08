@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PublicObjects : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PublicObjects : MonoBehaviour
         UseController = GameObject.FindGameObjectWithTag("UseController").GetComponent<UseController>();
         NoticeController = GameObject.FindGameObjectWithTag("NoticeController").GetComponent<NoticeController>();
         TextController = GameObject.FindGameObjectWithTag("Text").GetComponent<TextController>();
-        Elevator = GameObject.FindGameObjectWithTag("Elevator").GetComponent<Elevator>();
+        if (SceneManager.GetActiveScene().name == "Game") Elevator = GameObject.FindGameObjectWithTag("Elevator").GetComponent<Elevator>();
 
         doorOpen = mDoorOpen;
         doorLocked = mDoorLocked;

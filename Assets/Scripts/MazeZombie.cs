@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,8 @@ public class MazeZombie : MonoBehaviour
     public Transform Target;
     private NavMeshAgent agent;
     [SerializeField] Transform collectables;
-    [SerializeField] AudioSource beginAudio, runAudio, fairAudio, tempFairAudio;
+    [SerializeField] AudioSource beginAudio, runAudio, fairAudio, tempFairAudio, unlockAudio;
+    [SerializeField] List<Door> doors;
     public bool IsChasing = false;
     public int CollectablesCollected = 0;
     private float chasingCollectables = 0, collectablesCount = 0;
@@ -44,6 +46,12 @@ public class MazeZombie : MonoBehaviour
         {
             CollectablesCollected++;
             collectablesCount++;
+
+            if (NeedToCollect == CollectablesCollected)
+            {
+                doors.ForEach(door => door.locked = false);
+                unlockAudio.Play();
+            }
         }
 
         if (collectablesCount >= toStartChasing && !IsChasing)
