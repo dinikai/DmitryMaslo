@@ -13,7 +13,7 @@ public class MazeZombie : MonoBehaviour
     public bool IsChasing = false;
     public int CollectablesCollected = 0;
     private float chasingCollectables = 0, collectablesCount = 0;
-    private int toStartChasing, toStopChasing;
+    private int toStartChasing, toStopChasing, chasesCount;
     public event EventHandler OnCollect;
     public int NeedToCollect;
 
@@ -28,6 +28,7 @@ public class MazeZombie : MonoBehaviour
 
     private void Collectable_OnCollect(object sender, CollectableEventArgs e)
     {
+        CollectablesCollected++;
         if (IsChasing)
         {
             chasingCollectables++;
@@ -44,7 +45,6 @@ public class MazeZombie : MonoBehaviour
 
         if (!IsChasing)
         {
-            CollectablesCollected++;
             collectablesCount++;
 
             if (NeedToCollect == CollectablesCollected)
@@ -56,6 +56,8 @@ public class MazeZombie : MonoBehaviour
 
         if (collectablesCount >= toStartChasing && !IsChasing)
         {
+            chasesCount++;
+
             foreach (Transform item in transform)
                 item.gameObject.SetActive(true);
 
@@ -67,6 +69,9 @@ public class MazeZombie : MonoBehaviour
             collectablesCount = 0;
             toStopChasing = UnityEngine.Random.Range(2, 4);
             toStartChasing = UnityEngine.Random.Range(3, 6);
+
+            if (chasesCount == 1)
+                PublicObjects.TextController.WriteText(@"""Пизда. Надо бежать""");
         }
         e.ToDestroy.SetActive(false);
 
@@ -79,5 +84,14 @@ public class MazeZombie : MonoBehaviour
         {
             agent.SetDestination(Target.position);
         }
+    }
+
+    public void StopChasing()
+    {
+        IsChasing = false;
+        beginAudio.Stop();
+        runAudio.Stop();
+        fairAudio.Stop();
+        tempFairAudio.Stop();
     }
 }

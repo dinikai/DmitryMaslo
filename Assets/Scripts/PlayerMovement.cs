@@ -1,21 +1,34 @@
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController characterController;
+    private Rigidbody rb;
     public float walkSpeed, runSpeed, fallSpeed, stamina = 1f, staminaIncrement, staminaDecrement, acceleration, velocity;
-    private float xAxis, zAxis;
-    [SerializeField] private Image staminaBar;
+    public float xAxis, zAxis;
     [SerializeField] private Animator animator, modelAnimator;
     [SerializeField] private CraftController craftController;
     public bool canCraft, canWalk;
     private float blend;
     public float blendIncrease;
+    private PhotonView photonView;
+    [SerializeField] PlayerInfo playerInfo;
+    [SerializeField] Image staminaBar;
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        photonView = GetComponent<PhotonView>();
+
+        if (playerInfo.IsMultiplayer)
+        {
+            if (!photonView.IsMine)
+            {
+                Destroy(GetComponent<PlayerMovement>());
+            }
+        }
 
         /*if (SceneConnector.playerPosition != Vector3.zero)
         {
@@ -23,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         }*/
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (canCraft)
         {
@@ -36,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+
         xAxis = Input.GetAxis("Horizontal");
         zAxis = Input.GetAxis("Vertical");
 
@@ -88,14 +102,11 @@ public class PlayerMovement : MonoBehaviour
 
         modelAnimator.SetFloat("Velocity", velocity);
 
-        float yVector = characterController.isGrounded ? 0 : fallSpeed;
-
         float localSpeed = speed;
         if (!canWalk)
             localSpeed = 0;
-        Vector3 moveVector = transform.TransformDirection(new Vector3(xAxis, 0, zAxis)) * localSpeed * Time.fixedDeltaTime;
-        moveVector.y -= yVector;
-        characterController.Move(moveVector);
+        //Vector3 moveVector = transform.TransformDirection(new Vector3(xAxis, 0, zAxis)) * localSpeed * Time.fixedDeltaTime;
+        rb.velocity = transform.TransformDirection(new Vector3(xAxis * localSpeed * Time.fixedDeltaTime, rb.velocity.y, zAxis * localSpeed * Time.fixedDeltaTime));
 
         if (Input.GetKey(KeyCode.LeftShift) && (xAxis != 0 || zAxis != 0) && canWalk)
         {

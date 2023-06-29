@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class TextTrigger : Trigger
 {
-    [SerializeField] private TextController textController;
     public string text;
 
     public override void RunTrigger()
     {
-        textController.WriteText(text);
+        PublicObjects.TextController.WriteText(text);
     }
 }

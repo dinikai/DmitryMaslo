@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,17 +11,30 @@ public class CameraRotate : MonoBehaviour
     public int cameraType;
     [SerializeField] private CraftController craftController;
     public bool canCraft, canRotate;
+    [SerializeField] private PhotonView photonView;
+    [SerializeField] PlayerInfo playerInfo;
 
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        if (playerInfo.IsMultiplayer)
+        {
+            if (!photonView.IsMine)
+            {
+                Destroy(GetComponent<Camera>());
+                Destroy(GetComponent<CameraRotate>());
+            }
+        }
+        
+
         offset = player.transform.position - transform.position;
     }
 
     private void Update()
     {
+
         xRot -= Input.GetAxisRaw("Mouse Y") * sens;
         yRot += Input.GetAxisRaw("Mouse X") * sens;
 

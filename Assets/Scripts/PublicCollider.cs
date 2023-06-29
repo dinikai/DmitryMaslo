@@ -4,17 +4,17 @@ using UnityEngine;
 public class PublicCollider : MonoBehaviour
 {
     public bool InCollider;
-    public event EventHandler OnColliderEnter, OnColliderExit;
+    public virtual event EventHandler OnColliderEnter, OnColliderExit;
     public bool OverrideTag;
     public string OverridedTag;
-    string overridedTag = "";
+    protected string overridedTag = "";
 
     private void Start()
     {
         overridedTag = OverrideTag ? OverridedTag : "Player";
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(overridedTag))
         {
@@ -23,7 +23,7 @@ public class PublicCollider : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag(overridedTag))
         {

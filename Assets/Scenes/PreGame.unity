@@ -1804,6 +1804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1592, guid: d738018668965ac4bba56742bc271a32, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 552302419, guid: d738018668965ac4bba56742bc271a32, type: 3}
       propertyPath: footsteps
       value: 
@@ -1826,18 +1830,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1168888060, guid: d738018668965ac4bba56742bc271a32, type: 3}
       propertyPath: canCraft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168888063, guid: d738018668965ac4bba56742bc271a32, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168888063, guid: d738018668965ac4bba56742bc271a32, type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 1168888063, guid: d738018668965ac4bba56742bc271a32, type: 3}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1168888064, guid: d738018668965ac4bba56742bc271a32, type: 3}
@@ -1904,6 +1896,7 @@ PrefabInstance:
     - {fileID: 1784118341, guid: d738018668965ac4bba56742bc271a32, type: 3}
     - {fileID: 1168888060, guid: d738018668965ac4bba56742bc271a32, type: 3}
     - {fileID: 1168888062, guid: d738018668965ac4bba56742bc271a32, type: 3}
+    - {fileID: 1670783335, guid: d738018668965ac4bba56742bc271a32, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
